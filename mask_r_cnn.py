@@ -11,7 +11,30 @@ Original file is located at
 import os
 
 # Mount Google Drive
+import os
+from PIL import Image
 
+# Base directory for our dataset
+base_dir = '/content/drive/MyDrive/Facial Expression DataSet'
+
+# We have 'test/test' as seen before. Let's see if there is a corresponding 'train' or if we need to split manually
+test_dir = '/content/drive/MyDrive/Facial Expression DataSet/test/test'
+train_dir_candidate = '/content/drive/MyDrive/Facial Expression DataSet/train/train'
+if not os.path.exists(train_dir_candidate):
+    train_dir_candidate = '/content/drive/MyDrive/Facial Expression DataSet/train'
+
+print("Checking directories...")
+print("Test path exists:", os.path.exists(test_dir))
+print("Train candidate path exists:", os.path.exists(train_dir_candidate))
+
+# Let's check some image specifications in one of the test folders
+sample_class = os.listdir(test_dir)[0]
+sample_class_dir = os.path.join(test_dir, sample_class)
+sample_images = os.listdir(sample_class_dir)
+if sample_images:
+    sample_img_path = os.path.join(sample_class_dir, sample_images[0])
+    with Image.open(sample_img_path) as img:
+        print(f"Sample image format: {img.format}, Size: {img.size}, Mode: {img.mode}")
 
 import os
 from PIL import Image
