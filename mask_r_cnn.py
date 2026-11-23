@@ -13,27 +13,11 @@ import os
 # Mount Google Drive
 
 
-# Define the correct path to the nested dataset's test folder
-dataset_path = '/content/drive/MyDrive/Facial Expression DataSet/test/test'
-
-# Verify path existence and list contents
-if os.path.exists(dataset_path):
-    print("Successfully accessed the nested test folder!")
-    print("Contents (expression classes):")
-    display(os.listdir(dataset_path))
-else:
-    print(f"Path not found: {dataset_path}")
-    # Fallback to display whatever is in the first test folder
-    fallback_path = '/content/drive/MyDrive/Facial Expression DataSet/test'
-    if os.path.exists(fallback_path):
-        print(f"Contents of '{fallback_path}':")
-        display(os.listdir(fallback_path))
-
 import os
 from PIL import Image
 
 # Base directory for our dataset
-base_dir = '/content/drive/MyDrive/Facial Expression DataSet'
+#base_dir = '/content/drive/MyDrive/Facial Expression DataSet'
 
 # We have 'test/test' as seen before. Let's see if there is a corresponding 'train' or if we need to split manually
 test_dir = '/content/drive/MyDrive/Facial Expression DataSet/test/test'
