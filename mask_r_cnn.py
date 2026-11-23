@@ -18,23 +18,39 @@ from PIL import Image
 base_dir = '/content/drive/MyDrive/Facial Expression DataSet'
 
 # We have 'test/test' as seen before. Let's see if there is a corresponding 'train' or if we need to split manually
-test_dir = '/content/drive/MyDrive/Facial Expression DataSet/test/test'
-train_dir_candidate = '/content/drive/MyDrive/Facial Expression DataSet/train/train'
-if not os.path.exists(train_dir_candidate):
-    train_dir_candidate = '/content/drive/MyDrive/Facial Expression DataSet/train'
+import os
 
-print("Checking directories...")
-print("Test path exists:", os.path.exists(test_dir))
-print("Train candidate path exists:", os.path.exists(train_dir_candidate))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATASET_DIR = os.path.join(BASE_DIR, "Facial Expression DataSet")
+
+train_dir = os.path.join(DATASET_DIR, "train")
+test_dir = os.path.join(DATASET_DIR, "test")
+
+print("Dataset path:", DATASET_DIR)
+print("Train exists:", os.path.exists(train_dir))
+print("Test exists:", os.path.exists(test_dir))
 
 # Let's check some image specifications in one of the test folders
-sample_class = os.listdir(test_dir)[0]
-sample_class_dir = os.path.join(test_dir, sample_class)
-sample_images = os.listdir(sample_class_dir)
-if sample_images:
-    sample_img_path = os.path.join(sample_class_dir, sample_images[0])
-    with Image.open(sample_img_path) as img:
-        print(f"Sample image format: {img.format}, Size: {img.size}, Mode: {img.mode}")
+if os.path.isdir(test_dir):
+    test_classes = [
+        folder for folder in os.listdir(test_dir)
+        if os.path.isdir(os.path.join(test_dir, folder))
+    ]
+
+    if test_classes:
+        sample_class = test_classes[0]
+        sample_class_dir = os.path.join(test_dir, sample_class)
+
+        sample_images = os.listdir(sample_class_dir)
+
+        if sample_images:
+            print("Sample class:", sample_class)
+            print("Sample image:", sample_images[0])
+    else:
+        print("No class folders found in test directory.")
+else:
+    print("Test dataset directory not found:", test_dir)
 
 import os
 from PIL import Image
